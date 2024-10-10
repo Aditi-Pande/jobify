@@ -33,7 +33,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 if(process.env.NODE_DEV === 'development'){
     app.use(morgan("dev"));
 }
-app.use(express.static(path.resolve(__dirname, './public')))
+app.use(express.static(path.resolve(__dirname, './client/dist')))
 app.use(cookieParser());
 app.use(express.json());
 
@@ -49,9 +49,9 @@ app.use('/api/v1/jobs',authMiddleware, JobRouter);
 app.use('/api/v1/users', authMiddleware, userRouter);
 app.use('/api/v1/auth', authRouter);
 
-// app.get("*", (req, res) => {
-//     res.sendFile(path.resolve(__dirname, "./public", "index.html"));
-//   });
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, './client/dist', "index.html"));
+  });
 
 app.use("*", (req, res) => {
     res.status(404).json({msg:"Not found!"})
