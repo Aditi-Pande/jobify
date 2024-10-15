@@ -5,6 +5,20 @@ import { Link } from 'react-router-dom';
 import { Logo } from '../components';
 
 const Landing = () => {
+  const loginDemoUser = async () => {
+    const data = {
+      email: 'test@test.com',
+      password: 'secret123',
+    };
+    try {
+      await customFetch.post('/auth/login', data);
+      toast.success('Take a test drive');
+      navigate('/dashboard');
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+    }
+  };
+
   return (
     <Wrapper>
       <nav>
@@ -27,6 +41,10 @@ const Landing = () => {
           <Link to='/login' className='btn '>
             Login / Demo User
           </Link>
+          <SubmitBtn />
+          <button type='button' className='btn btn-block' onClick={loginDemoUser}>
+            explore the app
+          </button>
         </div>
         <img src={main} alt='job hunt' className='img main-img' />
       </div>
