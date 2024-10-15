@@ -1,33 +1,34 @@
-import React from 'react';
-import Wrapper from "../assets/wrappers/LandingPage"
-import main from "../assets/images/main.svg"
+import styled from 'styled-components';
+import Wrapper from '../assets/wrappers/LandingPage';
+import main from '../assets/images/main.svg';
 import { Link } from 'react-router-dom';
-import {Logo} from "../components"
+import { Logo } from '../components';
 
 const Landing = () => {
   return (
     <Wrapper>
       <nav>
-        <Logo/>
+        <Logo />
       </nav>
-
-      <div className="container page">
-        <div className="info">
-          <h1>Job Tracking App</h1>
+      <div className='container page'>
+        <div className='info'>
+          <h1>
+            job <span>tracking</span> app
+          </h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-            Natus dolore error quam adipisci praesentium fuga veritatis 
-            voluptatibus delectus, hic consequatur nesciunt fugit rerum 
-            eligendi nostrum incidunt, ipsam accusantium quasi temporibus.
+            I'm baby wayfarers hoodie next level taiyaki brooklyn cliche blue
+            bottle single-origin coffee chia. Aesthetic post-ironic venmo,
+            quinoa lo-fi tote bag adaptogen everyday carry meggings +1 brunch
+            narwhal.
           </p>
-          <Link to="/register" className='btn register-link'>
+          <Link to='/register' className='btn register-link'>
             Register
           </Link>
-          <Link to="/login" className='btn login-link'>
-            Login/ Demo user
+          <Link to='/login' className='btn '>
+            Login / Demo User
           </Link>
         </div>
-        <img src={main} alt="jon hunt" className='img main-img'/>
+        <img src={main} alt='job hunt' className='img main-img' />
       </div>
     </Wrapper>
   );
