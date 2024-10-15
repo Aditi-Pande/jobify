@@ -1,16 +1,14 @@
-import React from 'react'
-import Wrapper from '../assets/wrappers/StatItem'
+import Wrapper from '../assets/wrappers/StatItem';
 
-const StatItem = ({count, title, icon, color, bcg}) => {
+const StatItem = ({ count, title, icon, color, bcg }) => {
   return (
     <Wrapper color={color} bcg={bcg}>
-        <header>
-            <span className='count'>{count}</span>
-            <span className='icon'>{icon}</span>
-        </header>
-        <h5 className='title'>{title}</h5>
+      <header>
+        <span className='count'>{count}</span>
+        <span className='icon'>{icon}</span>
+      </header>
+      <h5 className='title'>{title}</h5>
     </Wrapper>
-  )
-}
-
-export default StatItem
+  );
+};
+export default StatItem;

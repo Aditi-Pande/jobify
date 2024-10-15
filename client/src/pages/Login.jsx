@@ -23,19 +23,7 @@ export const action =
 const Login = () => {
   const navigate = useNavigate();
 
-  const loginDemoUser = async () => {
-    const data = {
-      email: 'test@test.com',
-      password: 'secret123',
-    };
-    try {
-      await customFetch.post('/auth/login', data);
-      toast.success('Take a test drive');
-      navigate('/dashboard');
-    } catch (error) {
-      toast.error(error?.response?.data?.msg);
-    }
-  };
+  
   return (
     <Wrapper>
       <Form method='post' className='form'>
@@ -43,7 +31,7 @@ const Login = () => {
         <h4>login</h4>
         <FormRow type='email' name='email' />
         <FormRow type='password' name='password' />
-        
+        <SubmitBtn />
         <p>
           Not a member yet?
           <Link to='/register' className='member-btn'>

@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 import Wrapper from '../assets/wrappers/LandingPage';
 import main from '../assets/images/main.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Logo } from '../components';
+import customFetch from '../utils/customFetch';
+import { toast } from 'react-toastify';
 
 const Landing = () => {
+  const navigate = useNavigate();
+
+  // Function to log in as a demo user
   const loginDemoUser = async () => {
     const data = {
       email: 'test@test.com',
@@ -39,12 +44,15 @@ const Landing = () => {
             Register
           </Link>
           <Link to='/login' className='btn '>
-            Login / Demo User
+            Login
           </Link>
-          <SubmitBtn />
-          <button type='button' className='btn btn-block' onClick={loginDemoUser}>
-            explore the app
-          </button>
+          <br />
+          <br />
+          <Link className='btn ' type='button' onClick={loginDemoUser}>
+            Explore the app
+          </Link>
+          
+          
         </div>
         <img src={main} alt='job hunt' className='img main-img' />
       </div>

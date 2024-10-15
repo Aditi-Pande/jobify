@@ -1,24 +1,23 @@
-import React from 'react'
-import { toast } from "react-toastify";
-import { JobsContainer, SearchContainer } from "../components";
-import customFetch from "../utils/customFetch";
-import { useLoaderData } from "react-router-dom";
-import { useContext, createContext } from "react";
-import { QueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { JobsContainer, SearchContainer } from '../components';
+import customFetch from '../utils/customFetch';
+import { useLoaderData } from 'react-router-dom';
+import { useContext, createContext } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
 const allJobsQuery = (params) => {
   const { search, jobStatus, jobType, sort, page } = params;
   return {
     queryKey: [
-      "jobs",
-      search ?? "",
-      jobStatus ?? "all",
-      jobType ?? "all",
-      sort ?? "newest",
+      'jobs',
+      search ?? '',
+      jobStatus ?? 'all',
+      jobType ?? 'all',
+      sort ?? 'newest',
       page ?? 1,
     ],
     queryFn: async () => {
-      const { data } = await customFetch.get("/jobs", {
+      const { data } = await customFetch.get('/jobs', {
         params,
       });
       return data;
@@ -26,23 +25,19 @@ const allJobsQuery = (params) => {
   };
 };
 
-export const loader = (queryClient) =>  async({request}) => {
+export const loader =
+  (queryClient) =>
+  async ({ request }) => {
+    const params = Object.fromEntries([
+      ...new URL(request.url).searchParams.entries(),
+    ]);
 
-  const params = Object.fromEntries([
-    ...new URL(request.url).searchParams.entries()
-  ])
-  
-  try { 
-    const {data} = await customFetch.get('/jobs', {params});
-    return {data, searchValues:{...params}}
-  } catch (error) {
-    toast.error(error?.response?.data?.msg)
-    return error
-  }
-}
+    await queryClient.ensureQueryData(allJobsQuery(params));
+    return { searchValues: { ...params } };
+  };
 
-const AllJobsContext = createContext()
-const allJobs = () => {
+const AllJobsContext = createContext();
+const AllJobs = () => {
   const { searchValues } = useLoaderData();
   const { data } = useQuery(allJobsQuery(searchValues));
   return (
@@ -52,6 +47,7 @@ const allJobs = () => {
     </AllJobsContext.Provider>
   );
 };
-export default allJobs;
 
-export const useAllJobsContext = () => useContext(AllJobsContext)
+export const useAllJobsContext = () => useContext(AllJobsContext);
+
+export default AllJobs;
