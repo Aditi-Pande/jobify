@@ -1,5 +1,8 @@
 import React from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 import {
   HomeLayout,
   Landing,
@@ -35,6 +38,14 @@ const checkDefaultTheme = () => {
 
 const isDarkThemeEnabled = checkDefaultTheme();
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries:{
+      staleTime:1000 * 60 * 5
+    }
+  }
+})
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -53,22 +64,23 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <Login />,
-        action: loginAction,
+        action: loginAction(queryClient),
       },
       {
         path: "dashboard",
-        element: <Dashboard isDarkThemeEnabled = {isDarkThemeEnabled} />,
-        loader:dashboardLoader,
+        element: <Dashboard isDarkThemeEnabled = {isDarkThemeEnabled} queryClient={queryClient}/>,
+        loader:dashboardLoader(queryClient),
         children:[
           {
             index:true,
             element:<AddJob/>, 
-            action: addJobsAction,
+            action: addJobsAction(queryClient),
           },
           {
             path:'stats',
             element:<Stats/>,
-            loader:statsLoader,
+            loader:statsLoader(queryClient),
+            errorElement: <ErrorElement />,
           },
           {
             path:'all-jobs',
@@ -78,7 +90,7 @@ const router = createBrowserRouter([
           {
             path:'profile',
             element:<Profile/>,
-            action: profileAction,
+            action: profileAction(queryClient),
           },
           {
             path:'admin',
@@ -88,12 +100,12 @@ const router = createBrowserRouter([
           {
             path: 'edit-job/:id',
             element: <EditJob />,
-            loader: editJobLoader,
-            action: editJobAction,
+            loader: editJobLoader(queryClient),
+            action: editJobAction(queryClient),
           },
           {
             path: 'delete-job/:id',
-            action: deleteJobAction,
+            action: deleteJobAction(queryClient),
           },
         ]
       },
@@ -102,7 +114,11 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />; 
+    return 
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />; 
+      <ReactQueryDevtools initialIsOpen={false}/>
+    </QueryClientProvider>
 }
 
 export default App
