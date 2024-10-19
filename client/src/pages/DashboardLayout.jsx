@@ -6,6 +6,7 @@ import customFetch from '../utils/customFetch';
 import { toast } from 'react-toastify';
 import { useQuery } from '@tanstack/react-query';
 import { checkDefaultTheme } from '../App';
+
 const userQuery = {
   queryKey: ['user'],
   queryFn: async () => {

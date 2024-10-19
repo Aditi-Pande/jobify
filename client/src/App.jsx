@@ -36,7 +36,11 @@ export const checkDefaultTheme = () => {
   return isDarkTheme;
 };
 
-checkDefaultTheme();
+useEffect(() => {
+  const isDarkTheme = checkDefaultTheme();
+  // Additional logic if necessary
+}, []);
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
