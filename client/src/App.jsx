@@ -1,7 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useEffect } from 'react';
 
 import {
   HomeLayout,
@@ -37,11 +36,7 @@ export const checkDefaultTheme = () => {
   return isDarkTheme;
 };
 
-useEffect(() => {
-  const isDarkTheme = checkDefaultTheme();
-  // Additional logic if necessary
-}, []);
-
+checkDefaultTheme();
 
 const queryClient = new QueryClient({
   defaultOptions: {
