@@ -1,6 +1,6 @@
 This project is a full-stack web application built using the MERN stack (MongoDB, Express, React, Node.js). It demonstrates modern development practices, combining a dynamic front-end with a robust back-end to create a scalable and user-friendly application.
 
-<h1> Features<h1/>
+<h1> Features</h1>
 Front-End
 Pages include: 
 1. Landing (Welcome page)
